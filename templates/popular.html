@@ -1,0 +1,9 @@
+{% extends "base/base.html" %}
+
+{% block title %}Popular Anime{% endblock title %}
+
+{% block content %}
+
+{{request.get_popular}}
+
+{% endblock content %}

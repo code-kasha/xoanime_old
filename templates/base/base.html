@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="XO Anime, A place to watch Anime.">
+	<link rel="shortcut icon" href="{% static 'icons/favicon.ico' %}" type="image/x-icon">
+	<link rel="manifest" href="{% static 'manifest.json' %}">
+	<link rel="stylesheet" href="{% static 'styles/xo.min.css' %}">
+
+	<title>{% block title %}{% endblock title %}</title>
+</head>
+
+<body>
+	<header>
+		{% include "base/components/navbar.html" %}
+		{% include "base/components/messages.html" %}
+		{% include "base/components/spinner.html" %}
+	</header>
+
+	<main>
+		{% block content %}{% endblock content %}
+	</main>
+
+	<footer>
+		{% include "base/components/footer.html" %}
+	</footer>
+
+
+	<script>
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register("{% static 'scripts/sw.js' %}")
+		}
+
+		const imagePlaceholder = "{% static 'images/placeholder.jpg' %}"
+	</script>
+
+	{% comment %}
+	<script>
+		function checkValidityAndSubmit(form) {
+			if (form.checkValidity()) {
+				document.getElementById('spinner-container').style.display = 'flex';
+				form.submit();
+			}
+		}
+	</script>
+	{% endcomment %}
+
+	<script src="{% static 'xo.min.js' %}" defer></script>
+	{% comment %}<script src="{% static 'video.min.js' %}" defer></script> {% endcomment %}
+	{% block scripts %}{% endblock scripts %}
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "xoanime"
+version = "0.1.0"
+description = "XO Anime. Anime, Manga and more."
+authors = ["code-kasha <akash.damle@outlook.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^4.2.7"
+requests = "^2.31.0"
+django-allauth = "^0.58.2"
+django-extensions = "^3.2.3"
+django-dotenv = "^1.4.2"
+
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.1.0"
+black = "^23.11.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+Search Results
+{% endblock title %}
+
+{% block content %}
+You searched for : {{request.get_search_query}}
+
+<hr>
+
+{% comment %} Page {% endcomment %}
+
+{% if request.get_search_results.currentPage %}
+<p>Page: {{request.get_search_results.currentPage}}</p>
+{% endif %}
+
+{% comment %} Next {% endcomment %}
+{% if request.get_search_results.hasNextPage %}
+<p>Next</p>
+{% endif %}
+
+{% comment %} Previous {% endcomment %}
+{% if request.get_search_results.currentPage|add:0 > 1 %}
+<p>Previous</p>
+{% endif %}
+
+
+{% for result in request.get_search_results.results %}
+{{result}}
+<a href="{% url 'details' %}?id={{result.id}}">Details</a>
+<hr>
+{% endfor %}
+
+{% endblock content %}

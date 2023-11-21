@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "es2020",
+
+    /* Modules */
+    "module": "commonjs",
+    "paths": {
+      "*": ["./node_modules/*"]
+    },
+
+    /* Emit */
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+
+    /* Completeness */
+    "skipLibCheck": true
+  },
+  "include": ["routes/**/*.ts", "utils/*.ts", "index.ts"],
+  "exclude": ["node_modules", "<node_internals>/**", "bin/**"]
+}

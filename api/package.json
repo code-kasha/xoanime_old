@@ -1,0 +1,31 @@
+{
+  "name": "xoanime-api",
+  "version": "0.1.0",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon index.ts",
+    "lint": "prettier --write .",
+    "start": "node dist/index.js"
+  },
+  "engines": {
+    "node": ">=12.5.0",
+    "yarn": ">=1.17.3"
+  },
+  "author": "code-kasha <akash.damle@outlook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@consumet/extensions": "^1.5.2",
+    "@fastify/cors": "^8.2.0",
+    "@types/node": "^18.11.17",
+    "@types/ws": "^8.5.3",
+    "dotenv": "^16.0.3",
+    "fastify": "^4.10.2",
+    "ioredis": "^5.2.4",
+    "npm-watch": "^0.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.20",
+    "prettier": "^2.8.1"
+  }
+}

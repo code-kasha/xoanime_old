@@ -1,0 +1,31 @@
+<nav>
+	<form action="{% url 'search' %}" class="">
+		{% comment %} Input {% endcomment %}
+		<input type="text" name="query" placeholder="Search" class="" required>
+
+		{% comment %} Select {% endcomment %}
+		<select name="provider" class="" required>
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+				stroke="currentColor" class="w-6 h-6">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+			</svg>
+			<option value="anilist" {% if request.get_provider == "anilist" %}selected{% endif %}>
+				Anilist</option>
+			<option value="gogoanime" {% if request.get_provider == "gogoanime" %}selected{% endif %}>
+				Gogo Anime
+			</option>
+			<option value="mangadex" {% if request.get_provider == "mangadex" %}selected{% endif %}>
+				Manga Dex</option>
+			<option value="myanimelist" {% if request.get_provider == "myanimelist" %}selected{% endif %}>My Anime
+				List
+			</option>
+			<option value="tmdb" {% if request.get_provider == "tmdb" %}selected{% endif %}>TMDB
+			</option>
+		</select>
+
+		{% comment %} Button {% endcomment %}
+		<button type="submit">
+			Search
+		</button>
+	</form>
+</nav>

@@ -1,0 +1,27 @@
+{
+  "name": "xoanime",
+  "version": "0.1.0",
+  "description": "XO Anime. Anime, Manga and more.",
+  "repository": "https://github.com/code-kasha/xoanime.git",
+  "author": "code-kasha <akash.damle@outlook.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.1",
+    "flowbite": "^2.2.0",
+    "hls.js": "^1.4.12",
+    "plyr": "^3.7.8",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "postcss-import": "^15.1.0",
+    "tailwind-scrollbar": "^3.0.5",
+    "tailwindcss": "^3.3.5"
+  },
+  "scripts": {
+    "flowbite": "@powershell cp node_modules/flowbite/dist/flowbite.min.js staticfiles/scripts",
+    "hls": "@powershell cp node_modules/hls.js/dist/hls.min.js staticfiles/scripts",
+    "plyr": "@powershell cp node_modules/plyr/dist/plyr.min.js staticfiles/scripts && @powershell cp node_modules/plyr/dist/plyr.css staticfiles/styles",
+    "build:css": "postcss staticfiles/styles/base.css -o staticfiles/styles/xo.min.css --watch"
+  }
+}

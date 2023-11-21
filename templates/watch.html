@@ -1,0 +1,27 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+Watch
+{% endblock title %}
+
+{% block content %}
+You are watching:
+{% if request.get_details.title.english %}
+{{request.get_details.title.english}}
+{% elif request.get_details.title.romaji %}
+{{request.get_details.title.romaji}}
+{% elif request.get_details.title.native %}
+{{request.get_details.title.native}}
+{% elif request.get_details.title.userPreffered %}
+{{request.get_details.title.userPreffered}}
+{% else %}
+{{request.get_details.title}}
+{% endif %}
+
+Episode: {{request.get_item.number}}
+
+<hr>
+
+{{request.get_links}}
+
+{% endblock content %}

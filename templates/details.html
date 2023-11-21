@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+
+{% if request.get_details.title %}
+
+{% if request.get_details.title.english %}
+{{request.get_details.title.english}}
+{% elif request.get_details.title.romaji %}
+{{request.get_details.title.romaji}}
+{% elif request.get_details.title.native %}
+{{request.get_details.title.native}}
+{% elif request.get_details.title.userPreffered %}
+{{request.get_details.title.userPreffered}}
+{% else %}
+{{request.get_details.title}}
+{% endif %}
+
+{% endif %}
+
+
+{% endblock title %}
+
+{% block content %}
+
+{% if request.get_now_playing %}
+<a href="{% url 'watch' %}?id={{request.get_now_playing}}">Watch</a>
+{% endif %}
+
+{% endblock content %}
