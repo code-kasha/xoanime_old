@@ -13,8 +13,8 @@ module.exports = {
       screens: {
         gf: "280px", // Galaxy Fold (Shortest usable screen size)
         mb: "320px", // Normal mobile
-        xxs: "375px", // Large mobile (e.g., iPhone 6/7/8)
-        xs: "425px", // Extra-small tablets and large phones
+        xxs: "400px", // Large mobile (e.g., iPhone 6/7/8)
+        xs: "480px", // Extra-small tablets and large phones
         sm: "600px", // Small tablets
         md: "768px", // Tablet (e.g., iPad)
         lg: "1024px", // Small laptops

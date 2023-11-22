@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from django.shortcuts import render, redirect
@@ -395,20 +397,46 @@ class WatchEpisodeView(View):
 
     def get(self, request):
         id = self.get_attrs(request)
+        name = id.replace("-", " ")
+        pattern = re.compile(r"^(.+) (\d+nd|\d+st|\d+rd|\d+th) season episode (\d+)$")
+        match = pattern.match(name)
+
+        if match:
+            name = match.group(1)
+            season = match.group(2)
+            episode = match.group(3)
 
         url = f"{BASE_URL}/gogoanime/watch/{id}"
 
-        links = fetch(request, url)
+        current_links = request.get_links()
 
-        if links is not None and links:
-            request.set_links(links)
-        else:
-            request.set_links({})
+        if (
+            current_links["name"] != name
+            or current_links["season"] != season
+            or current_links["episode"] != episode
+        ):
+            links = fetch(request, url)
 
-        if not request.get_links():
-            return redirect(to="index")
+            request.set_id("")
+            request.set_details({})
+            request.set_items([])
+            request.set_item({})
+            request.set_now_playing("")
+            request.set_previous({})
+            request.set_next({})
 
-        return render(request, "watch.html")
+            if links is not None and links:
+                links["name"] = name
+                links["season"] = season
+                links["episode"] = episode
+                request.set_links(links)
+            else:
+                request.set_links({})
+
+            if not request.get_links():
+                return redirect(to="index")
+
+        return render(request, "watch_episode.html")
 
 
 watch_episode = login_required(WatchEpisodeView.as_view())

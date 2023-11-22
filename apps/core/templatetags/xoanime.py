@@ -2,37 +2,18 @@ import datetime, json
 
 from django import template
 
-import pycountry
+from .helpers import COUNTRIES, MONTHS, TYPES, LANGUAGES
 
-COUNTRY_NAMES = {country.alpha_2: country.name for country in pycountry.countries}
 
 register = template.Library()
-
-MONTHS = {
-    1: "January",
-    2: "February",
-    3: "March",
-    4: "April",
-    5: "May",
-    6: "June",
-    7: "July",
-    8: "August",
-    9: "September",
-    10: "October",
-    11: "November",
-    12: "December",
-}
-
-TYPES = {
-    "sub": "English Sub",
-    "dub": "English Dub",
-}
 
 
 @register.filter(name="title")
 def title(title):
+    """Return title."""
     if isinstance(title, str):
         return title
+
     elif isinstance(title, dict):
         return (
             title.get("english")
@@ -53,32 +34,38 @@ def load_json(obj):
 
 
 @register.filter
-def timestamp_to_str(value):
+def time_from_timestamp(value):
+    """Return time from a timestamp."""
     return datetime.utcfromtimestamp(value)
 
 
 @register.filter
-def timestr_to_str(value):
+def time_from_timestr(value):
+    """Return time from a time string."""
     return datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ")
 
 
 @register.filter(name="to_int")
 def to_int(value):
+    """Type conversion - INT"""
     return int(value)
 
 
 @register.filter(name="month")
 def month(value):
+    """Return month from number."""
     return f"{MONTHS[value]},"
 
 
 @register.filter(name="type")
 def type(value):
+    """Return Audio Type Sub/Dub"""
     return TYPES[value]
 
 
 @register.filter(name="suffix")
 def suffix(day):
+    """Return proper suffix for the day."""
     if day % 10 == 1 and day % 100 != 11:
         suffix = "st"
     elif day % 10 == 2 and day % 100 != 12:
@@ -92,4 +79,13 @@ def suffix(day):
 
 @register.filter(name="country")
 def country(code):
-    return COUNTRY_NAMES[code]
+    """Return country name from country code."""
+    return COUNTRIES[code]
+
+
+@register.filter(name="lang")
+def lang(code):
+    """Return language name from code"""
+    if code == "id":
+        return "Indonesian"
+    return LANGUAGES[code]

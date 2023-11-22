@@ -20,8 +20,14 @@ You are watching:
 
 Episode: {{request.get_item.number}}
 
-<hr>
 
 {{request.get_links}}
+<hr>
+
+{% if "download" in request.get_links %}
+<a href="{{request.get_links.download}}">Download</a>
+{% endif %}
+
+{% comment %} Add Download Button {% endcomment %}
 
 {% endblock content %}

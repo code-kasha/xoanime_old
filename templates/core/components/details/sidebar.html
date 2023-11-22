@@ -1,20 +1,27 @@
 {% load xoanime %}
 {% load static %}
 
-
 <div class="space-y-4 p-2 overflow-y-auto h-ful">
 	{% comment %} Adult {% endcomment %}
 	{% if request.get_details.isAdult %}
 	<div class="flex mx-auto">
-		<span class="w-3/5 text-center">Adult</span>
+		<span class="w-5/12 text-center">Adult</span>
 		<span class="w-1/2 text-center">{{request.get_details.isAdult}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Age Rating {% endcomment %}
+	{% if request.get_details.ageRating %}
+	<div class="flex mx-auto">
+		<span class="w-5/12 text-center">Age Rating</span>
+		<span class="w-1/2 text-center truncate">{{request.get_details.ageRating}}</span>
 	</div>
 	{% endif %}
 
 	{% comment %} Country Of Origin {% endcomment %}
 	{% if request.get_details.countryOfOrigin %}
-	<div class="flex  mx-auto">
-		<span class="w-3/5 text-center">Country</span>
+	<div class="flex mx-auto">
+		<span class="w-5/12 text-center">Country</span>
 		<span class="w-1/2 text-center">{{request.get_details.countryOfOrigin|country}}</span>
 	</div>
 	{% endif %}
@@ -22,23 +29,39 @@
 	{% comment %} Current Episode {% endcomment %}
 	{% if request.get_details.currentEpisode %}
 	<div class="flex  mx-auto">
-		<span class="w-3/5 text-center">Episode</span>
-		<span class="w-1/2 text-center">{{request.get_details.currentEpisode}}</span>
+		<span class="w-5/12 text-center">Current</span>
+		<span class="w-1/2 text-center">Episode {{request.get_details.currentEpisode}}</span>
 	</div>
 	{% endif %}
 
 	{% comment %} Duration {% endcomment %}
 	{% if request.get_details.duration %}
 	<div class="flex  mx-auto">
-		<span class="w-3/5 text-center">Duration</span>
+		<span class="w-5/12 text-center">Duration</span>
 		<span class="w-1/2 text-center">{{request.get_details.duration}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Genres {% endcomment %}
+	{% if request.get_details.genres %}
+	<div class="flex mx-auto">
+		<span class="w-5/12 text-center">Genres</span>
+		<span class="w-1/2 text-center truncate">
+			{% for genre in request.get_details.genres %}
+			{% if forloop.last %}
+			{{genre}}
+			{% else %}
+			{{genre}}&nbsp;,
+			{% endif %}
+			{% endfor %}
+		</span>
 	</div>
 	{% endif %}
 
 	{% comment %} Licensed {% endcomment %}
 	{% if request.get_details.isLicensed %}
 	<div class="flex  mx-auto">
-		<span class="w-3/5 text-center">Licensed</span>
+		<span class="w-5/12 text-center">Licensed</span>
 		<span class="w-1/2 text-center">{{request.get_details.isLicensed}}</span>
 	</div>
 	{% endif %}
@@ -46,15 +69,31 @@
 	{% comment %} Popularity {% endcomment %}
 	{% if request.get_details.popularity %}
 	<div class="flex  mx-auto">
-		<span class="w-3/5 text-center">Popularity</span>
+		<span class="w-5/12 text-center">Popularity</span>
 		<span class="w-1/2 text-center">{{request.get_details.popularity}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Producers {% endcomment %}
+	{% if request.get_details.producers %}
+	<div class="flex  mx-auto">
+		<span class="w-5/12 text-center">Producers</span>
+		<span class="w-1/2 text-center truncate">
+			{% for producer in request.get_details.producers %}
+			{% if forloop.last %}
+			{{producer}}
+			{% else %}
+			{{producer}}&nbsp;,
+			{% endif %}
+			{% endfor %}
+		</span>
 	</div>
 	{% endif %}
 
 	{% comment %} Rating {% endcomment %}
 	{% if request.get_details.rating %}
 	<div class="flex  mx-auto">
-		<span class="w-3/5 text-center">Rating</span>
+		<span class="w-5/12 text-center">Rating</span>
 		<span class="w-1/2 text-center">{{request.get_details.rating}}</span>
 	</div>
 	{% endif %}
@@ -62,7 +101,7 @@
 	{% comment %} Release Date {% endcomment %}
 	{% if request.get_details.releaseDate %}
 	<div class="flex  mx-auto">
-		<span class="w-3/5 text-center">Released</span>
+		<span class="w-5/12 text-center">Released</span>
 		<span class="w-1/2 text-center">{{request.get_details.releaseDate}}</span>
 	</div>
 	{% endif %}
@@ -70,7 +109,7 @@
 	{% comment %} Season {% endcomment %}
 	{% if request.get_details.season %}
 	<div class="flex  mx-auto">
-		<span class="w-3/5 text-center">Season</span>
+		<span class="w-5/12 text-center">Season</span>
 		<span class="w-1/2 text-center">{{request.get_details.season}}</span>
 	</div>
 	{% endif %}
@@ -78,7 +117,7 @@
 	{% comment %} Start Date {% endcomment %}
 	{% if request.get_details.startDate %}
 	<div class="flex mx-auto">
-		<span class="w-3/5 text-center">Start Date</span>
+		<span class="w-5/12 text-center">Start Date</span>
 		<span class="w-1/2 text-center truncate">
 			{% if request.get_details.startDate.day %}
 			{{request.get_details.startDate.day|suffix}}
@@ -98,7 +137,7 @@
 	{% comment %} End Date {% endcomment %}
 	{% if request.get_details.endDate %}
 	<div class="flex mx-auto">
-		<span class="w-3/5 text-center">End Date</span>
+		<span class="w-5/12 text-center">End Date</span>
 		<span class="w-1/2 text-center truncate">
 			{% if request.get_details.endDate.day %}
 			{{request.get_details.endDate.day|suffix}}
@@ -119,23 +158,71 @@
 	{% comment %} Status {% endcomment %}
 	{% if request.get_details.status %}
 	<div class="flex  mx-auto">
-		<span class="w-3/5 text-center">Status</span>
+		<span class="w-5/12 text-center">Status</span>
 		<span class="w-1/2 text-center">{{request.get_details.status}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Studios {% endcomment %}
+	{% if request.get_details.studios %}
+	<div class="flex  mx-auto">
+		<span class="w-5/12 text-center">Studios</span>
+		<span class="w-1/2 text-center truncate">
+			{% for studio in request.get_details.studios %}
+			{% if forloop.last %}
+			{{studio}}
+			{% else %}
+			{{studio}}&nbsp;,
+			{% endif %}
+			{% endfor %}
+		</span>
 	</div>
 	{% endif %}
 
 	{% comment %} Sub / Dub {% endcomment %}
 	{% if request.get_details.subOrDub %}
 	<div class="flex  mx-auto">
-		<span class="w-3/5 text-center">Type</span>
+		<span class="w-5/12 text-center">Type</span>
 		<span class="w-1/2 text-center">{{request.get_details.subOrDub|type}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Synonyms {% endcomment %}
+	{% if request.get_details.synonyms %}
+	<div class="flex  mx-auto">
+		<span class="w-5/12 text-center">Synonyms</span>
+		<span class="w-1/2 text-center truncate">
+			{% for synonym in request.get_details.synonyms %}
+			{% if forloop.last %}
+			{{synonym}}
+			{% else %}
+			{{synonym}}&nbsp;,
+			{% endif %}
+			{% endfor %}
+		</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Themes {% endcomment %}
+	{% if request.get_details.themes %}
+	<div class="flex  mx-auto">
+		<span class="w-5/12 text-center">Themes</span>
+		<span class="w-1/2 text-center truncate">
+			{% for theme in request.get_details.themes %}
+			{% if forloop.last %}
+			{{theme}}
+			{% else %}
+			{{theme}}&nbsp;,
+			{% endif %}
+			{% endfor %}
+		</span>
 	</div>
 	{% endif %}
 
 	{% comment %} Total Episodes {% endcomment %}
 	{% if request.get_details.totalEpisodes %}
 	<div class="flex mx-auto">
-		<span class="w-3/5 text-center">Total Episodes</span>
+		<span class="w-5/12 text-center">Total Episodes</span>
 		<span class="w-1/2 text-center">{{request.get_details.totalEpisodes}}</span>
 	</div>
 	{% endif %}
@@ -143,7 +230,7 @@
 	{% comment %} Type {% endcomment %}
 	{% if request.get_details.type %}
 	<div class="flex  mx-auto">
-		<span class="w-3/5 text-center">Format</span>
+		<span class="w-5/12 text-center">Format</span>
 		<span class="w-1/2 text-center">{{request.get_details.type}}</span>
 	</div>
 	{% endif %}
