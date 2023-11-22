@@ -1,35 +1,114 @@
 {% extends "base/base.html" %}
 
+{% load xoanime %}
+
 {% block title %}
 Search Results
 {% endblock title %}
 
 {% block content %}
-You searched for : {{request.get_search_query}}
 
-<hr>
+{% if request.get_search_results %}
 
-{% comment %} Page {% endcomment %}
+<div id="search-results">
+	{% if request.get_search_query %}
+	<div id="search-head">
+		<p>You searched for : {{request.get_search_query}}</p>
+	</div>
+	{% endif %}
 
-{% if request.get_search_results.currentPage %}
-<p>Page: {{request.get_search_results.currentPage}}</p>
+	<div id="search-nav">
+		{% comment %} Previous {% endcomment %}
+		{% if request.get_search_results.currentPage|add:0 > 1 %}
+		<p>Previous</p>
+		{% endif %}
+
+		{% comment %} Page {% endcomment %}
+		{% if request.get_search_results.currentPage %}
+		<p>Page: {{request.get_search_results.currentPage}}</p>
+		{% endif %}
+
+		{% comment %} Next {% endcomment %}
+		{% if request.get_search_results.hasNextPage %}
+		<p>Next</p>
+		{% endif %}
+	</div>
+
+	<div id="search-results" class="grid grid-cols-4">
+		{% for result in request.get_search_results.results %}
+		{% if result %}
+		{% comment %} Image {% endcomment %}
+		<div id="result-{{result.id}}" class="relative" data-type="result">
+			{% comment %} Image {% endcomment %}
+			<div class="h-[320px] w-[240px] flex" id="{{result.id}}#image">
+				<img src="{{result.image}}" id="{{result.id}}-image" alt="" data-type="image"
+					class="object-cover border border-black h-full w-full">
+			</div>
+			{% comment %} Title {% endcomment %}
+			<div class="">
+				{% if result.title %}
+				<p>{{result.title|title}}</p>
+				{% endif %}
+			</div>
+			{% comment %} Link {% endcomment %}
+			<a href="{% url 'details' %}?id={{result.id}}">Details</a>
+		</div>
+
+		{% comment %} Details {% endcomment %}
+		<div class="absolute hidden" data-type="result-info">
+			{% comment %} Title {% endcomment %}
+			{% if result.title %}
+			<p>{{result.title|title}}</p>
+			{% endif %}
+
+			{% comment %} Description {% endcomment %}
+			{% if result.description %}
+			<p>{{result.description|safe}}</p>
+			{% endif %}
+
+			{% comment %} Current Episode Count {% endcomment %}
+			{% if result.currentEpisodeCount %}
+			<p>{{result.currentEpisodeCount}}</p>
+			{% endif %}
+
+			{% comment %} Popularity {% endcomment %}
+			{% if result.popularity %}
+			<p>{{result.popularity}}</p>
+			{% endif %}
+
+			{% comment %} Rating {% endcomment %}
+			{% if result.rating %}
+			<p>{{result.rating}}</p>
+			{% endif %}
+
+			{% comment %} Release Date {% endcomment %}
+			{% if result.releaseDate %}
+			<p>{{result.releaseDate}}</p>
+			{% endif %}
+
+			{% comment %} Status {% endcomment %}
+			{% if result.status %}
+			<p>{{result.status}}</p>
+			{% endif %}
+
+			{% comment %} Total Episodes {% endcomment %}
+			{% if result.totalEpisodes %}
+			<p>{{result.totalEpisodes}}</p>
+			{% endif %}
+
+			{% comment %} Type {% endcomment %}
+			{% if result.type %}
+			<p>{{result.type}}</p>
+			{% endif %}
+
+			{% comment %} Genres {% endcomment %}
+		</div>
+		{% endif %}
+		{% endfor %}
+	</div>
+
+
+</div>
 {% endif %}
-
-{% comment %} Next {% endcomment %}
-{% if request.get_search_results.hasNextPage %}
-<p>Next</p>
-{% endif %}
-
-{% comment %} Previous {% endcomment %}
-{% if request.get_search_results.currentPage|add:0 > 1 %}
-<p>Previous</p>
-{% endif %}
-
-
-{% for result in request.get_search_results.results %}
-{{result}}
-<a href="{% url 'details' %}?id={{result.id}}">Details</a>
-<hr>
-{% endfor %}
 
 {% endblock content %}

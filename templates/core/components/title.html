@@ -1,0 +1,15 @@
+{% if title %}
+{% if title.english %}
+{{title.english}}
+{% elif title.romaji %}
+{{title.romaji}}
+{% elif title.native %}
+{{title.native}}
+{% elif title.userPreffered %}
+{{title.userPreffered}}
+{% else %}
+{{title}}
+{% endif %}
+{% else %}
+Details
+{% endif %}

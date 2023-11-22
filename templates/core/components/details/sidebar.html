@@ -1,0 +1,150 @@
+{% load xoanime %}
+{% load static %}
+
+
+<div class="space-y-4 p-2 overflow-y-auto h-ful">
+	{% comment %} Adult {% endcomment %}
+	{% if request.get_details.isAdult %}
+	<div class="flex mx-auto">
+		<span class="w-3/5 text-center">Adult</span>
+		<span class="w-1/2 text-center">{{request.get_details.isAdult}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Country Of Origin {% endcomment %}
+	{% if request.get_details.countryOfOrigin %}
+	<div class="flex  mx-auto">
+		<span class="w-3/5 text-center">Country</span>
+		<span class="w-1/2 text-center">{{request.get_details.countryOfOrigin|country}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Current Episode {% endcomment %}
+	{% if request.get_details.currentEpisode %}
+	<div class="flex  mx-auto">
+		<span class="w-3/5 text-center">Episode</span>
+		<span class="w-1/2 text-center">{{request.get_details.currentEpisode}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Duration {% endcomment %}
+	{% if request.get_details.duration %}
+	<div class="flex  mx-auto">
+		<span class="w-3/5 text-center">Duration</span>
+		<span class="w-1/2 text-center">{{request.get_details.duration}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Licensed {% endcomment %}
+	{% if request.get_details.isLicensed %}
+	<div class="flex  mx-auto">
+		<span class="w-3/5 text-center">Licensed</span>
+		<span class="w-1/2 text-center">{{request.get_details.isLicensed}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Popularity {% endcomment %}
+	{% if request.get_details.popularity %}
+	<div class="flex  mx-auto">
+		<span class="w-3/5 text-center">Popularity</span>
+		<span class="w-1/2 text-center">{{request.get_details.popularity}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Rating {% endcomment %}
+	{% if request.get_details.rating %}
+	<div class="flex  mx-auto">
+		<span class="w-3/5 text-center">Rating</span>
+		<span class="w-1/2 text-center">{{request.get_details.rating}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Release Date {% endcomment %}
+	{% if request.get_details.releaseDate %}
+	<div class="flex  mx-auto">
+		<span class="w-3/5 text-center">Released</span>
+		<span class="w-1/2 text-center">{{request.get_details.releaseDate}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Season {% endcomment %}
+	{% if request.get_details.season %}
+	<div class="flex  mx-auto">
+		<span class="w-3/5 text-center">Season</span>
+		<span class="w-1/2 text-center">{{request.get_details.season}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Start Date {% endcomment %}
+	{% if request.get_details.startDate %}
+	<div class="flex mx-auto">
+		<span class="w-3/5 text-center">Start Date</span>
+		<span class="w-1/2 text-center truncate">
+			{% if request.get_details.startDate.day %}
+			{{request.get_details.startDate.day|suffix}}
+			{% endif %}
+			{% if request.get_details.startDate.month %}
+			{{request.get_details.startDate.month|to_int|month}}
+			{% endif %}
+			{% if request.get_details.startDate.year %}
+			{{request.get_details.startDate.year}}
+			{% else %}
+			-
+			{% endif %}
+		</span>
+	</div>
+	{% endif %}
+
+	{% comment %} End Date {% endcomment %}
+	{% if request.get_details.endDate %}
+	<div class="flex mx-auto">
+		<span class="w-3/5 text-center">End Date</span>
+		<span class="w-1/2 text-center truncate">
+			{% if request.get_details.endDate.day %}
+			{{request.get_details.endDate.day|suffix}}
+			{% endif %}
+			{% if request.get_details.endDate.month %}
+			{{request.get_details.endDate.month|to_int|month}}
+			{% endif %}
+			{% if request.get_details.endDate.year %}
+			{{request.get_details.endDate.year}}
+			{% else %}
+			-
+			{% endif %}
+
+		</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Status {% endcomment %}
+	{% if request.get_details.status %}
+	<div class="flex  mx-auto">
+		<span class="w-3/5 text-center">Status</span>
+		<span class="w-1/2 text-center">{{request.get_details.status}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Sub / Dub {% endcomment %}
+	{% if request.get_details.subOrDub %}
+	<div class="flex  mx-auto">
+		<span class="w-3/5 text-center">Type</span>
+		<span class="w-1/2 text-center">{{request.get_details.subOrDub|type}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Total Episodes {% endcomment %}
+	{% if request.get_details.totalEpisodes %}
+	<div class="flex mx-auto">
+		<span class="w-3/5 text-center">Total Episodes</span>
+		<span class="w-1/2 text-center">{{request.get_details.totalEpisodes}}</span>
+	</div>
+	{% endif %}
+
+	{% comment %} Type {% endcomment %}
+	{% if request.get_details.type %}
+	<div class="flex  mx-auto">
+		<span class="w-3/5 text-center">Format</span>
+		<span class="w-1/2 text-center">{{request.get_details.type}}</span>
+	</div>
+	{% endif %}
+</div>
