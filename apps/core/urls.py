@@ -8,6 +8,7 @@ urlpatterns = [
     path("details", views.details, name="details"),
     path("popular", views.popular, name="popular"),
     path("recent", views.recent, name="recent"),
+    path("read", views.watch, name="read"),
     path("search", views.search, name="search"),
     path("top", views.top, name="top"),
     path("trending", views.trending, name="trending"),

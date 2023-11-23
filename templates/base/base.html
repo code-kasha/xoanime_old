@@ -14,7 +14,7 @@
 	<title>{% block title %}{% endblock title %}</title>
 </head>
 
-<body>
+<body class="hidden gf:block">
 	<header>
 		{% include "base/components/navbar.html" %}
 		{% include "base/components/messages.html" %}
@@ -34,8 +34,9 @@
 		if ('serviceWorker' in navigator) {
 			navigator.serviceWorker.register("{% static 'scripts/sw.js' %}")
 		}
-
+		let provider = "{{request.get_provider}}"
 		const imagePlaceholder = "{% static 'images/placeholder.jpg' %}"
+		const nowPlaying = "{{request.get_now_playing}}"
 	</script>
 
 	{% comment %}
@@ -49,9 +50,9 @@
 	</script>
 	{% endcomment %}
 
-	<script src="{% static 'scripts/xo.min.js' %}" defer></script>
+	<script src="{% static 'scripts/flowbite.min.js' %}" defer></script>
 	<script src="{% static 'scripts/app.js' %}" defer></script>
-	{% comment %}<script src="{% static 'video.min.js' %}" defer></script> {% endcomment %}
+
 	{% block scripts %}{% endblock scripts %}
 </body>
 

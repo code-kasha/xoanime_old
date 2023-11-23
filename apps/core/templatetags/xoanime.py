@@ -86,6 +86,8 @@ def country(code):
 @register.filter(name="lang")
 def lang(code):
     """Return language name from code"""
-    if code == "id":
-        return "Indonesian"
-    return LANGUAGES[code]
+    try:
+        code = LANGUAGES[code]
+        return code
+    except:
+        return code

@@ -13,10 +13,29 @@ Watch
 {% endwith %}
 
 
+<button data-type="action-button" disabled>Main</button>
+<button data-type="action-button">Backup</button>
+
+<video id="video" class="">
+	{% for source in request.get_links.sources %}
+	{% if "default" in source.quality %}
+	<source src="{{source.url}}" type="application/x-mpegURL" id="default-source" />
+	{% elif "backup" in source.quality %}
+	<source src="{{source.url}}" type="application/x-mpegURL" id="backup-source" />
+	{% endif %}
+	{% endfor %}
+</video>
+
+{% comment %} Add Download Button {% endcomment %}
 {% if "download" in request.get_links %}
 <a href="{{request.get_links.download}}">Download</a>
 {% endif %}
 
-{% comment %} Add Download Button {% endcomment %}
 
 {% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'scripts/hls.min.js' %}"></script>
+<script src="{% static 'scripts/plyr.min.js' %}"></script>
+<script src="{% static 'scripts/player.js' %}"></script>
+{% endblock scripts %}

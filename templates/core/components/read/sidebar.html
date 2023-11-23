@@ -1,0 +1,26 @@
+{% load xoanime %}
+{% load static %}
+
+<div class="flex justify-evenly flex-col h-full p-2 overflow-y-auto">
+	<div class="flex flex-col space-y-4">
+		<p class="text-center truncate">{{request.get_item.title}}</p>
+		<div class="flex justify-around">
+			<p class="truncate">Volume: {{request.get_item.volumeNumber}}</p>
+			<p class="truncate">Chapter: {{request.get_item.chapterNumber}}</p>
+			<p class="truncate">Pages: {{request.get_item.pages}}</p>
+		</div>
+	</div>
+
+	<div class="flex flex-col mx-auto space-y-4">
+		<input type="text" id="searchInput" class="mx-auto rounded-xl appearance-none text-center"
+			placeholder="Search Chapters">
+		<div
+			class="grid grid-cols-3 xxs:grid-cols-4 py-2 md:grid-cols-5 max-h-[420px] min-h-max overflow-auto mx-auto w-full gap-2 items-center">
+			{% for item in request.get_items %}
+			<a href="{% url 'watch' %}?id={{item.id}}" data-action="fetch" data-type="episode" id="episode-{{item.id}}"
+				class="{% if item.id == request.get_now_playing %} bg-yellow-300 {% endif %} p-2 text-center border rounded-xl shadow-md hover:bg-yellow-300"
+				title="{{item.title}}"> {{item.chapterNumber}} </a>
+			{% endfor %}
+		</div>
+	</div>
+</div>

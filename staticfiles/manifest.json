@@ -4,13 +4,25 @@
   "short_name": "XO Anime",
   "description": "Watch anime, movies and more.",
   "assets": [
+    "icons/favicon.ico",
     "icons/apple-touch-icon.png",
     "icons/icon-16.png",
     "icons/icon-32.png",
     "icons/icon-192.png",
     "icons/icon-512.png",
     "images/placeholder.jpg",
-    "images/user.png"
+    "images/user.png",
+    "images/anidb.png",
+    "images/anilist.png",
+    "images/gogoanime.png",
+    "images/kitsu.png",
+    "images/mal.jpg",
+    "images/tmdb.png",
+    "styles/xo.min.css",
+    "scripts/app.js",
+    "scripts/player.js",
+    "scripts/reader.js",
+    "scripts/sw.js"
   ],
   "icons": [
     {

@@ -12,6 +12,7 @@
 {% block content %}
 
 
+{% if request.get_provider == "mangadex" %}
 <div class="flex items-center">
 	<div class="flex items-center">
 		<p>Title:</p>
@@ -34,6 +35,7 @@
 		</select>
 	</div>
 </div>
+{% endif %}
 
 {% comment %} Details {% endcomment %}
 <div id="details#{{request.get_id}}" class="space-y-4 py-4">
@@ -51,7 +53,7 @@
 	{% comment %} Cover {% endcomment %}
 	{% if request.get_details.cover %}
 	<div class="hidden md:block">
-		<img src="{{request.get_details.cover}}" alt="{{request.get_id}}#cover" data-type="cover"
+		<img src="{{request.get_details.cover}}" alt="{{request.get_id}}#cover" data-type="image"
 			class="hidden mx-auto">
 	</div>
 	{% endif %}
@@ -63,7 +65,7 @@
 		{% comment %} Mal {% endcomment %}
 		{% if request.get_details.malId %}
 		<a href="https://myanimelist.net/anime/{{request.get_details.malId}}">
-			<img src="{% static 'images/mal.jpg' %}" class="h-8">
+			<img src="{% static 'images/mal.jpg' %}" data-type="image" class="h-8">
 		</a>
 		{% endif %}
 
@@ -75,35 +77,35 @@
 		{% comment %} Anilist {% endcomment %}
 		{% if "anilist" == mapping.providerId %}
 		<a href="https://anilist.co/anime/{{mapping.id}}">
-			<img src="{% static 'images/anilist.png' %}" class="h-8">
+			<img src="{% static 'images/anilist.png' %}" data-type="image" class="h-8">
 		</a>
 		{% endif %}
 
 		{% comment %} Anidb {% endcomment %}
 		{% if "anidb" == mapping.providerId %}
 		<a href="https://anidb.net/{{mapping.id}}">
-			<img src="{% static 'images/anidb.png' %}" class="h-9">
+			<img src="{% static 'images/anidb.png' %}" data-type="image" class="h-9">
 		</a>
 		{% endif %}
 
 		{% comment %} Gogoanime {% endcomment %}
 		{% if "gogoanime" == mapping.providerId %}
 		<a href="https://gogoanimehd.io{{mapping.id}}">
-			<img src="{% static 'images/gogoanime.png' %}" class="h-8">
+			<img src="{% static 'images/gogoanime.png' %}" data-type="image" class="h-8">
 		</a>
 		{% endif %}
 
 		{% comment %} Kitsu {% endcomment %}
 		{% if "kitsu" == mapping.providerId %}
 		<a href="https://kitsu.io/anime/{{mapping.id}}">
-			<img src="{% static 'images/kitsu.png' %}" class="h-8">
+			<img src="{% static 'images/kitsu.png' %}" data-type="image" class="h-8">
 		</a>
 		{% endif %}
 
 		{% comment %} Tmdb {% endcomment %}
 		{% if "tmdb" == mapping.providerId %}
 		<a href="https://www.themoviedb.org/{{mapping.id}}">
-			<img src="{% static 'images/tmdb.png' %}" class="h-8">
+			<img src="{% static 'images/tmdb.png' %}" data-type="image" class="h-8">
 		</a>
 		{% endif %}
 
@@ -125,7 +127,7 @@
 		{% comment %} Description {% endcomment %}
 		<div class="flex items-center w-3/4 mx-auto lg:w-1/2">
 			{% if request.get_details.description %}
-			<span class="scrollbar scrollbar-none overflow-auto h-[280px]" id="desc-container">
+			<span class="scrollbar scrollbar-none overflow-auto max-h-[280px]" id="desc-container">
 				{% if request.get_provider == "mangadex" %}
 				{{request.get_details.description.en|safe}}
 				{% else %}
@@ -140,8 +142,14 @@
 	{% if request.get_now_playing or request.get_details.trailer %}
 	<div class="mx-auto text-center py-4">
 		{% if request.get_now_playing %}
+		{% if request.get_provider == "mangadex" %}
+		<a href="{% url 'read' %}?id={{request.get_now_playing}}"
+			class="px-4 py-3 border rounded-xl shadow-md hover:bg-gray-400">Read</a>
+		{% else %}
 		<a href="{% url 'watch' %}?id={{request.get_now_playing}}"
 			class="px-4 py-3 border rounded-xl shadow-md hover:bg-gray-400">Watch</a>
+
+		{% endif %}
 		{% endif %}
 		{% if request.get_details.trailer %}
 		<a href="{{request.get_details.trailer.site}}{{request.get_details.trailer.id}}"
@@ -159,13 +167,13 @@
 				<p class="text-xl font-bold p-2 py-4" id="characters-button">Characters</p>
 				<div class="" id="characters-container">
 					<div
-						class="relative grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 3xl:grid-cols-2 gap-2 h-[480px] scrollbar scrollbar-none overflow-y-scroll clearfix">
+						class="relative grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 3xl:grid-cols-2 gap-2 max-h-[480px] scrollbar scrollbar-none overflow-y-scroll clearfix">
 						{% for character in request.get_details.characters %}
 						<div class="mx-auto w-[220px] space-y-2 mb-2">
 							<p class="py-1 px-0.5 truncate">
 								{{character.name.full}}</p>
 							<img src="{{character.image}}" alt="" srcset="" class="w-[200px] h-[240px] mx-auto"
-								data-popover-target="character-{{forloop.counter}}">
+								data-type="image" data-popover-target="character-{{forloop.counter}}">
 						</div>
 						{% comment %} Popover {% endcomment %}
 						<div data-popover id="character-{{forloop.counter}}" role="tooltip"
@@ -189,13 +197,13 @@
 				<p class="text-xl font-bold p-2 py-4" id="recommendations-button">Recommendations</p>
 				<div class="" id="recommendations-container">
 					<div
-						class="relative grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 3xl:grid-cols-2 gap-2 h-[480px] scrollbar scrollbar-none overflow-y-scroll clearfix">
+						class="relative grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 3xl:grid-cols-2 gap-2 max-h-[480px] scrollbar scrollbar-none overflow-y-scroll clearfix">
 						{% for recommendation in request.get_details.recommendations %}
 						<div class="mx-auto w-[220px] space-y-2 mb-2">
 							<p class="py-1 px-0.5 truncate">
 								{{recommendation.title|title}}</p>
 							<img src="{{recommendation.image}}" alt="" srcset="" class="w-[200px] h-[240px] mx-auto"
-								data-popover-target="recommendation-{{forloop.counter}}">
+								data-type="image" data-popover-target="recommendation-{{forloop.counter}}">
 						</div>
 						{% comment %} Popover {% endcomment %}
 						<div data-popover id="recommendation-{{forloop.counter}}" role="tooltip"
@@ -220,13 +228,13 @@
 					Relations</p>
 				<div class="" id="relations-container">
 					<div
-						class="relative grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 3xl:grid-cols-2 gap-2 h-[480px] scrollbar scrollbar-none overflow-y-scroll clearfix">
+						class="relative grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 3xl:grid-cols-2 gap-2 max-h-[480px] scrollbar scrollbar-none overflow-y-scroll clearfix">
 						{% for relation in request.get_details.relations %}
 						<div class="mx-auto w-[220px] space-y-2 mb-2">
 							<p class="py-1 px-0.5 truncate">
 								{{relation.title|title}}</p>
 							<img src="{{relation.image}}" data-popover-target="relation-{{forloop.counter}}"
-								class="w-[200px] h-[240px] mx-auto" alt="" srcset="">
+								data-type="image" class="w-[200px] h-[240px] mx-auto" alt="" srcset="">
 						</div>
 						{% comment %} Popover {% endcomment %}
 						<div data-popover id="relation-{{forloop.counter}}" role="tooltip"
@@ -251,11 +259,11 @@
 	<div class="flex flex-col lg:flex-row mx-auto w-11/12 space-y-4 space-x-0 lg:space-y-0 lg:space-x-4">
 
 		{% comment %} Openings {% endcomment %}
-		<div class="w-full md:w-1/2 mx-auto space-y-2 flex flex-col text-center">
+		<div class="w-full lg:w-1/2 mx-auto space-y-2 flex flex-col text-center">
 			<p class="text-xl font-bold p-2 py-4" id="openings-button">Openings</p>
 			<div class="mx-auto" id="openings-container">
 				<div
-					class="relative grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 3xl:grid-cols-2 gap-2 h-[480px] scrollbar scrollbar-none overflow-y-scroll clearfix">
+					class="relative grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 3xl:grid-cols-3 gap-2 max-h-[480px] scrollbar scrollbar-none overflow-y-scroll clearfix">
 					{% for opening in request.get_details.openings %}
 					<div class="mx-auto w-[220px] mb-2 border shadow-md p-2 rounded-xl">
 						<p class="py-1 px-0.5 truncate">{{opening.name}}</p>
@@ -268,11 +276,11 @@
 		</div>
 
 		{% comment %} Endings {% endcomment %}
-		<div class="w-full md:w-1/2 mx-auto space-y-2 flex flex-col text-center">
+		<div class="w-full lg:w-1/2 mx-auto space-y-2 flex flex-col text-center">
 			<p class="text-xl font-bold p-2 py-4" id="endings-button">Endings</p>
 			<div class="mx-auto" id="endings-container">
 				<div
-					class="relative grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 3xl:grid-cols-2 gap-2 h-[480px] scrollbar scrollbar-none overflow-y-scroll clearfix">
+					class="relative grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 3xl:grid-cols-3 gap-2 max-h-[480px] scrollbar scrollbar-none overflow-y-scroll clearfix">
 					{% for endings in request.get_details.endings %}
 					<div class="mx-auto w-[220px] mb-2 border shadow-md p-2 rounded-xl">
 						<p class="py-1 px-0.5 truncate">{{endings.name}}</p>
