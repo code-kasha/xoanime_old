@@ -1,43 +1,28 @@
 {% load xoanime %}
 {% load static %}
 
-<div class="flex justify-around flex-col h-full p-2 overflow-y-auto">
-	<div class="flex flex-col space-y-3">
-		{% if request.get_provider == "gogoanime" %}
-		<p class="text-center truncate">Episode {{request.get_item.number}}</p>
-		{% else %}
-		<p class="text-center truncate">{{request.get_item.title|title}}</p>
-		{% endif %}
-		<p class="text-center">Episode Number: {{request.get_item.number}}</p>
-	</div>
-	<input type="text" id="searchInput">
+
+<div class="flex flex-col space-y-4 mt-6">
+	{% if request.get_provider == "gogoanime" %}
+	<p class="text-center truncate">Episode {{request.get_item.number}}</p>
+	{% else %}
+	<p class="text-center truncate">{{request.get_item.title|title}}</p>
+	{% endif %}
+	<p class="text-center">Episode Number: {{request.get_item.number}}</p>
+</div>
+
+<div class="my-8"></div>
+
+<div class="flex flex-col">
+	<input type="text" id="searchInput" class="mx-auto rounded-xl appearance-none text-center w-10/12"
+		placeholder="Search Episodes">
+
 	<div
-		class="grid grid-cols-3 xxs:grid-cols-4 md:grid-cols-5 max-h-[480px] min-h-max overflow-auto mx-auto w-full gap-2 items-center">
+		class="grid grid-cols-3 xxs:grid-cols-4 py-2 my-4 scrollbar scrollbar-none max-h-[540px] min-h-max overflow-auto mx-auto gap-2 items-center w-10/12">
 		{% for item in request.get_items %}
-		<a href="{% url 'watch' %}?id={{item.id}}" data-number="{{item.number}}" data-action="fetch" data-type="episode"
-			id="episode-{{item.id}}"
+		<a href="{% url 'watch' %}?id={{item.id}}" data-action="fetch" data-type="episode" id="episode-{{item.id}}"
 			class="{% if item.id == request.get_now_playing %} bg-yellow-300 {% endif %} p-2 text-center border rounded-xl shadow-md hover:bg-yellow-300"
 			title="{{item.title}}"> {{item.number}} </a>
 		{% endfor %}
-	</div>
-	<div class="flex w-10/12 justify-around mx-auto text-center">
-		{% if request.get_previous %}
-		<span class="w-1/2">
-			<a href="{% url 'watch' %}?id={{request.get_previous.id}}"
-				title="{{request.get_previous.title}}">Previous</a>
-		</span>
-		{% endif %}
-		{% if request.get_next %}
-		<span class="w-1/2">
-			<a href="{% url 'watch' %}?id={{request.get_next.id}}" title="{{request.get_next.title}}">Next</a>
-		</span>
-		{% endif %}
-	</div>
-
-	<div class="flex items-center w-1/2 mx-auto justify-center">
-		{% if "download" in request.get_links %}
-		<a href="{{request.get_links.download}}">Download</a>
-		{% endif %}
-
 	</div>
 </div>

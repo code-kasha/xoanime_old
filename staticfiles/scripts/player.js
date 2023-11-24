@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeHLS()
 
     if (window.hls) {
-      console.log("button clicked")
       if (currentSource === "Main") {
         window.hls.loadSource(
           document.getElementById("backup-source").getAttribute("src")
@@ -104,20 +103,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function toggleServer() {
-    const buttons = document.querySelectorAll("[data-type=action-button]")
-    if (buttons) {
-      buttons.forEach((button) => {
-        button.addEventListener("click", function () {
-          button.disabled = true
-          buttons.forEach((otherButton) => {
-            if (otherButton !== button) {
-              otherButton.disabled = false
-            }
-          })
-          changeSource()
-        })
-      })
-    }
+    const button = document.getElementById("change-source")
+
+    button.addEventListener("click", () => {
+      changeSource()
+    })
   }
 
   function playerActions() {

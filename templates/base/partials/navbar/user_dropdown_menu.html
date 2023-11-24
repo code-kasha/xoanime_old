@@ -1,0 +1,50 @@
+{% comment %} User Dropdown Menu {% endcomment %}
+
+<div class="z-50 hidden my-4 {% if not request.user.is_authenticated %} w-40 text-center {% endif %} text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
+	id="user-dropdown">
+	{% comment %} User Details {% endcomment %}
+	{% if request.user.is_authenticated %}
+	<div class="px-4 py-3">
+		{% if request.user.username %}
+		<span class="block text-sm text-gray-900">{{request.user.username|capfirst}}</span>
+		{% endif %}
+		{% if request.user.email %}
+		<span class="block text-sm  text-gray-500 truncate">{{request.user.email}}</span>
+		{% endif %}
+	</div>
+	{% endif %}
+	{% comment %} User Actions {% endcomment %}
+	<ul class="py-2" aria-labelledby="user-menu-button">
+		{% if request.user.is_authenticated %}
+		{% if request.user.is_superuser %}
+		<li>
+			<a href="{% url 'index' %}admin" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Admin</a>
+		</li>
+		{% endif %}
+		<li>
+			<a href="{% url 'account_home' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Home</a>
+		</li>
+		<li>
+			<a href="{% url 'account_email' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">E-mail
+				Settings</a>
+		</li>
+		<li>
+			<a href="{% url 'account_change_password' %}"
+				class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Password Settings</a>
+		</li>
+		<li>
+			<a href="{% url 'account_logout' %}"
+				class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+		</li>
+		{% else %}
+		<li>
+			<a href="{% url 'account_signup' %}"
+				class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Signup</a>
+		</li>
+		<li>
+			<a href="{% url 'account_login' %}"
+				class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login</a>
+		</li>
+		{% endif %}
+	</ul>
+</div>

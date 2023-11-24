@@ -60,11 +60,12 @@
 
 	{% comment %} Mappings {% endcomment %}
 	{% if request.get_provider == "anilist" %}
-	<div class="flex items-center p-3 justify-around">
+	<div
+		class="grid grid-cols-3 md:grid-cols-6 mx-auto gap-4 xs:gap-3 md:gap-2 items-center p-3 justify-around lg:w-4/5">
 
 		{% comment %} Mal {% endcomment %}
 		{% if request.get_details.malId %}
-		<a href="https://myanimelist.net/anime/{{request.get_details.malId}}">
+		<a href="https://myanimelist.net/anime/{{request.get_details.malId}}" class="mx-auto">
 			<img src="{% static 'images/mal.jpg' %}" data-type="image" class="h-8">
 		</a>
 		{% endif %}
@@ -76,35 +77,35 @@
 
 		{% comment %} Anilist {% endcomment %}
 		{% if "anilist" == mapping.providerId %}
-		<a href="https://anilist.co/anime/{{mapping.id}}">
+		<a href="https://anilist.co/anime/{{mapping.id}}" class="mx-auto">
 			<img src="{% static 'images/anilist.png' %}" data-type="image" class="h-8">
 		</a>
 		{% endif %}
 
 		{% comment %} Anidb {% endcomment %}
 		{% if "anidb" == mapping.providerId %}
-		<a href="https://anidb.net/{{mapping.id}}">
+		<a href="https://anidb.net/{{mapping.id}}" class="mx-auto">
 			<img src="{% static 'images/anidb.png' %}" data-type="image" class="h-9">
 		</a>
 		{% endif %}
 
 		{% comment %} Gogoanime {% endcomment %}
 		{% if "gogoanime" == mapping.providerId %}
-		<a href="https://gogoanimehd.io{{mapping.id}}">
+		<a href="https://gogoanimehd.io{{mapping.id}}" class="mx-auto">
 			<img src="{% static 'images/gogoanime.png' %}" data-type="image" class="h-8">
 		</a>
 		{% endif %}
 
 		{% comment %} Kitsu {% endcomment %}
 		{% if "kitsu" == mapping.providerId %}
-		<a href="https://kitsu.io/anime/{{mapping.id}}">
+		<a href="https://kitsu.io/anime/{{mapping.id}}" class="mx-auto">
 			<img src="{% static 'images/kitsu.png' %}" data-type="image" class="h-8">
 		</a>
 		{% endif %}
 
 		{% comment %} Tmdb {% endcomment %}
 		{% if "tmdb" == mapping.providerId %}
-		<a href="https://www.themoviedb.org/{{mapping.id}}">
+		<a href="https://www.themoviedb.org/{{mapping.id}}" class="mx-auto">
 			<img src="{% static 'images/tmdb.png' %}" data-type="image" class="h-8">
 		</a>
 		{% endif %}
@@ -159,10 +160,11 @@
 	{% endif %}
 
 	{% if request.get_provider == "anilist" %}
-	<div class="flex flex-col lg:flex-row mx-auto w-11/12 space-y-4 space-x-0 lg:space-y-0 lg:space-x-4">
-
+	{% if request.get_details.characters or request.get_details.recommendations or request.get_details.relations %}
+	<div class="flex flex-col lg:flex-row justify-around mx-auto w-11/12 space-y-4 space-x-0 lg:space-y-0 lg:space-x-4">
 		{% comment %} Characters, Relations, Recommendations {% endcomment %}
 		<div class="w-full lg:w-1/3 mx-auto flex flex-col">
+			{% if request.get_details.characters %}
 			<div class="w-full lg:p-2 mx-auto text-center">
 				<p class="text-xl font-bold p-2 py-4" id="characters-button">Characters</p>
 				<div class="" id="characters-container">
@@ -190,9 +192,11 @@
 					</div>
 				</div>
 			</div>
+			{% endif %}
 		</div>
 
 		<div class="w-full lg:w-1/3 mx-auto flex flex-col">
+			{% if request.get_details.recommendations %}
 			<div class="w-full lg:p-2 mx-auto text-center">
 				<p class="text-xl font-bold p-2 py-4" id="recommendations-button">Recommendations</p>
 				<div class="" id="recommendations-container">
@@ -220,9 +224,11 @@
 					</div>
 				</div>
 			</div>
+			{% endif %}
 		</div>
 
 		<div class="w-full lg:w-1/3 mx-auto flex flex-col">
+			{% if request.get_details.relations %}
 			<div class="w-full lg:p-2 mx-auto text-center">
 				<p class="text-xl font-bold p-2 py-4" id="relations-button">
 					Relations</p>
@@ -252,6 +258,8 @@
 				</div>
 			</div>
 		</div>
+		{% endif %}
+		{% endif %}
 	</div>
 	{% endif %}
 
