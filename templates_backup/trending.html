@@ -1,0 +1,9 @@
+{% extends "base/base.html" %}
+
+{% block title %}Trending Anime{% endblock title %}
+
+{% block content %}
+
+{{request.get_trending}}
+
+{% endblock content %}

@@ -1,6 +1,6 @@
 from .base import *  # noqa
 
-# from django.contrib.messages import constants as messages
+from django.contrib.messages import constants as messages
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -10,13 +10,13 @@ LANGUAGE_CODE = "en-IN"
 
 # MEDIA_ROOT = BASE_DIR / "media"  # noqa
 
-# MESSAGE_TAGS = {
-#    messages.DEBUG: "DEBUG",
-#    messages.ERROR: "ERROR",
-#    messages.INFO: "INFO",
-#    messages.SUCCESS: "SUCCESS",
-#    messages.WARNING: "WARNING",
-# }
+MESSAGE_TAGS = {
+    messages.DEBUG: "DEBUG",
+    messages.ERROR: "ERROR",
+    messages.INFO: "INFO",
+    messages.SUCCESS: "SUCCESS",
+    messages.WARNING: "WARNING",
+}
 
 SITE_ID = 1
 

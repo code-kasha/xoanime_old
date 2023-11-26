@@ -1,0 +1,68 @@
+{% comment %} Large Screens {% endcomment %}
+
+<div class="hidden md:flex items-center justify-around flex-1">
+	<div class="w-3/4 flex justify-around mx-auto">
+		{% comment %} Search {% endcomment %}
+
+		<form action="{% url 'search' %}">
+			<div class="flex mx-auto space-x-2 justify-center">
+				<input type="text" id="search-query-sm" name="query"
+					class="relative w-6/12 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+					value="{% if request.get_search_query %}{{request.get_search_query}}{% else %} {% endif %}">
+				<select name="provider" id="search-provider-sm"
+					class="text-sm w-4/12 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+					<option value="anilist" {% if request.get_provider == "anilist" %}selected{% endif %}>
+						Anilist</option>
+					<option value="gogoanime" {% if request.get_provider == "gogoanime" %}selected{% endif %}>
+						Gogo Anime
+					</option>
+					<option value="mangadex" {% if request.get_provider == "mangadex" %}selected{% endif %}>
+						Manga Dex</option>
+					<option value="myanimelist" {% if request.get_provider == "myanimelist" %}selected{% endif %}>My
+						Anime List
+					</option>
+				</select>
+				<label for="search-button-sm" class="sr-only">Search</label>
+				<button type="submit" id="search-button-sm"
+					class="p-2 flex-1 mx-auto text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+					<svg class="w-4 h-4 mx-auto text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+						fill="none" viewBox="0 0 20 20">
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+					</svg>
+				</button>
+			</div>
+		</form>
+
+		{% comment %} Dropdown {% endcomment %}
+
+		<label for="dropdownNavbarLink" class="sr-only">Toggle Dropdown</label>
+		<button id="dropdownNavbarLink" data-dropdown-toggle="navbarActions"
+			class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+				stroke="currentColor" class="w-6 h-6">
+				<path stroke-linecap="round" stroke-linejoin="round"
+					d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+			</svg>
+		</button>
+
+		<div id="navbarActions"
+			class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+			<ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
+				<li>
+					<a href="{% url 'popular' %}" class="block px-4 py-2 hover:bg-gray-100">Popular</a>
+				</li>
+				<li>
+					<a href="{% url 'recent' %}" class="block px-4 py-2 hover:bg-gray-100">Recent</a>
+				</li>
+				<li>
+					<a href="{% url 'top' %}" class="block px-4 py-2 hover:bg-gray-100">Top Airing</a>
+				</li>
+				<li>
+					<a href="{% url 'trending' %}" class="block px-4 py-2 hover:bg-gray-100">Trending</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+</div>

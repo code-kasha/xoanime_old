@@ -1,0 +1,7 @@
+{% load xoanime %}
+
+<div class="flex mx-auto h-[340px] w-[240px] xxs:h-[260px] xxs:w-[180px] xs:h-[300px] xs:w-[220px] xsm:h-[320px] xsm:w-[240px] sm:h-[280px] sm:w-[200px] md:h-[320px] md:w-[240px] xl:h-[340px] xl:w-[260px] rounded-lg"
+	data-popover-target="tooltip-{{result.id}}" data-popover-trigger="{hover|click}" data-popover-placement="bottom">
+	<img src="{{result.image}}" id="{{result.id}}-image" alt="img#{{result.title|title}}" data-type="image"
+		class="object-cover rounded-lg border border-black h-full w-full">
+</div>

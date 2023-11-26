@@ -1,0 +1,28 @@
+{% load xoanime %}
+
+<div class="container grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mx-auto">
+	{% for result in results.results %}
+	<div class="relative flex flex-col py-3 space-y-2" data-type="result">
+		<div class="border rounded-xl space-y-3 w-full mx-auto p-4 items-center">
+			{% comment %} Title {% endcomment %}
+			{% if result.title %}
+			<p data-popover-target="tooltip-{{result.id}}" data-popover-trigger="{hover|click}"
+				class="truncate p-4 text-sm font-semibold mx-auto text-center">{{result.title|title}}</p>
+			{% endif %}
+			{% if result.status %}
+			<div class="text-center flex justify-around mx-auto">
+				<p class="w-1/3">Status:</p>
+				<p class="w-1/2">{{result.status|capfirst}}</p>
+			</div>
+			{% endif %}
+			{% if result.contentRating %}
+			<div class="text-center flex justify-around mx-auto">
+				<p class="w-1/3">Rating:</p>
+				<p class="w-1/2">{{result.contentRating|capfirst}}</p>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	{% include "core/components/search/popup.html" with result=result %}
+	{% endfor %}
+</div>

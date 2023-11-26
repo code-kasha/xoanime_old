@@ -15,7 +15,8 @@ module.exports = {
         mb: "320px", // Normal mobile
         xxs: "400px", // Large mobile (e.g., iPhone 6/7/8)
         xs: "480px", // Extra-small tablets and large phones
-        sm: "600px", // Small tablets
+        xsm: "520px",
+        sm: "640px", // Small tablets
         md: "768px", // Tablet (e.g., iPad)
         lg: "1024px", // Small laptops
         xl: "1280px", // Larger laptops and desktops

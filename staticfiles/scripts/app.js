@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   scrollNowPlaying()
 
   function handleCover() {
-    const cover = document.querySelector("[data-type='cover']")
+    const cover = document.getElementById("cover")
 
     if (cover) {
       const img = new Image()

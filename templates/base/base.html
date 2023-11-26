@@ -14,14 +14,14 @@
 	<title>{% block title %}{% endblock title %}</title>
 </head>
 
-<body class="hidden gf:block">
+<body class="hidden gf:flex flex-col h-screen">
 	<header>
 		{% include "base/components/navbar.html" %}
 		{% include "base/components/messages.html" %}
 		{% include "base/components/spinner.html" %}
 	</header>
 
-	<main>
+	<main class="flex-1 p-2">
 		{% block content %}{% endblock content %}
 	</main>
 

@@ -1,0 +1,19 @@
+{% load xoanime %}
+
+<div
+	class="grid grid-cols-1 xxs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2 mx-auto p-1 lg:container">
+	{% for result in results %}
+	<div id="result-{{result.id}}" class="relative flex flex-col py-3 space-y-2" data-type="result">
+		{% comment %} Image {% endcomment %}
+		{% include "core/components/search/image.html" with result=result %}
+		{% comment %} Details {% endcomment %}
+		<div class="">
+			{% comment %} Title {% endcomment %}
+			{% if result.title %}
+			<p class="truncate text-sm font-semibold mx-auto text-center">{{result.title|title}}</p>
+			{% endif %}
+		</div>
+	</div>
+	{% include "core/components/search/popup.html" with result=result %}
+	{% endfor %}
+</div>

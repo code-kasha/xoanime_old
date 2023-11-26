@@ -34,7 +34,9 @@
 				{% comment %} Search Input {% endcomment %}
 				<input type="search" name="query" id="search-query"
 					class="block p-2 w-full z-20 text-sm text-gray-900 bg-gray-100 rounded-e-lg border border-gray-300 focus:ring-slate-500 focus:border-slate-500"
-					placeholder="Search Query" value={{request.get_search_query}} required>
+					placeholder="Search Query"
+					value="{% if request.get_search_query %}{{request.get_search_query}}{% else %} {% endif %}"
+					required>
 				{% comment %} Submit Button {% endcomment %}
 				<button type="submit"
 					class="absolute top-0 end-0 p-2 text-sm font-medium h-full text-white bg-slate-700 rounded-e-lg border border-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300">

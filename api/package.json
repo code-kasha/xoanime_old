@@ -15,7 +15,7 @@
   "author": "code-kasha <akash.damle@outlook.com>",
   "license": "MIT",
   "dependencies": {
-    "@consumet/extensions": "^1.5.2",
+    "@consumet/extensions": "^1.5.4",
     "@fastify/cors": "^8.2.0",
     "@types/node": "^18.11.17",
     "@types/ws": "^8.5.3",

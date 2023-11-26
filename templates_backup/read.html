@@ -1,0 +1,167 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %}Read {{request.get_details.title|title}}{% endblock title %}
+
+{% block content %}
+
+
+{% comment %} Reader {% endcomment %}
+<div id="reader-container">
+	{% comment %} Info {% endcomment %}
+	<div id="reader-head" class="space-y-2">
+		<p class="text-2xl font-bold text-center">{{request.get_details.title|title}}</p>
+		<p class="text-xl text-center pt-4">{{request.get_item.title}} </p>
+		<div class="flex justify-around pt-4">
+			<p>Volume: {{request.get_item.volumeNumber}}</p>
+			<p>Chapter: {{request.get_item.chapterNumber}}</p>
+			<p>Pages: {{request.get_item.pages}}</p>
+		</div>
+	</div>
+
+	<hr class="m-4">
+
+	{% comment %} Pages {% endcomment %}
+	<div id="reader" class="container mx-auto flex flex-col space-y-2">
+		{% for page in request.get_links %}
+		<div class="w-full space-y-1 page {% if forloop.counter != 1 %}hidden{% endif %}" data-type="page">
+			<img src="{{ page.img }}" alt="{{ request.get_id }}#image#{{ page.page }}" data-type="image"
+				id="page-{{page.page}}" class="object-cover mx-auto border-2 border-black rounded-lg shadow-sm">
+			<p class="text-center">Page: {{ page.page }}</p>
+		</div>
+		{% endfor %}
+	</div>
+
+</div>
+
+{% comment %} Reader Controls {% endcomment %}
+{% if request.get_links %}
+<div
+	class="fixed flex flex-col right-0 top-0 h-screen z-20 w-14 bg-transparent mr-4 opacity-40 hover:opacity-100 justify-center">
+
+	<div class="relative hidden h-[360px] scrollbar scrollbar-none overflow-auto gap-4 mt-2" id="chapter-list">
+		{% for item in request.get_links %}
+		<a href="#page-{{item.page}}"
+			class="border rounded-lg bg-gray-200 p-2 text-center hover:bg-yellow-300">{{item.page}}</a>
+		{% endfor %}
+	</div>
+
+	<div class="mx-auto grid gap-4 mt-2">
+		<button class="border rounded-lg bg-gray-200 p-2 text-center hover:bg-yellow-300 mx-auto" type="button"
+			data-type="single" title="Previous Page" id="previous-page">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+				stroke="currentColor" class="w-8 h-6">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+			</svg>
+
+		</button>
+
+		<button class="border rounded-lg bg-gray-200 p-2 text-center hover:bg-yellow-300 mx-auto" type="button"
+			data-type="single" title="Next Page" id="next-page">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+				stroke="currentColor" class="w-8 h-6">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+			</svg>
+
+		</button>
+
+		<button class="border rounded-lg bg-gray-200 p-2 text-center hover:bg-yellow-300 mx-auto" type="button"
+			title="Switch Mode" id="mode-switcher">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+				stroke="currentColor" class="w-8 h-6">
+				<path stroke-linecap="round" stroke-linejoin="round"
+					d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+				<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+			</svg>
+		</button>
+
+		<a href="{% url 'details' %}?id={{request.get_id}}" title="Info"
+			class="border rounded-lg bg-gray-200 p-2 text-center hover:bg-yellow-300 mx-auto">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+				stroke="currentColor" class="w-8 h-6">
+				<path stroke-linecap="round" stroke-linejoin="round"
+					d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+			</svg>
+		</a>
+
+		{% if request.get_previous %}
+		<a href="{% url 'read' %}?id={{request.get_previous.id}}" title="Previous Chapter"
+			class="border rounded-lg bg-gray-200 p-2 text-center hover:bg-yellow-300 mx-auto">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+				stroke="currentColor" class="w-8 h-6">
+				<path stroke-linecap="round" stroke-linejoin="round"
+					d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z" />
+			</svg>
+		</a>
+		{% endif %}
+
+		{% if request.get_next %}
+		<a href="{% url 'read' %}?id={{request.get_next.id}}" title="Next Chapter"
+			class="border rounded-lg bg-gray-200 p-2 text-center hover:bg-yellow-300 mx-auto">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+				stroke="currentColor" class="w-8 h-6">
+				<path stroke-linecap="round" stroke-linejoin="round"
+					d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z" />
+			</svg>
+		</a>
+		{% endif %}
+
+		{% if request.get_now_playing %}
+		<button class="border rounded-lg bg-gray-200 p-2 text-center hover:bg-yellow-300 mx-auto" type="button"
+			data-drawer-target="read-sidebar" data-drawer-show="read-sidebar" aria-controls="read-sidebar"
+			title="Show Sidebar">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+				stroke="currentColor" class="w-8 h-6">
+				<path stroke-linecap="round" stroke-linejoin="round"
+					d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5" />
+			</svg>
+		</button>
+		{% endif %}
+	</div>
+</div>
+{% endif %}
+
+{% comment %} Sidebar {% endcomment %}
+{% if request.get_items %}
+<div id="read-sidebar"
+	class="fixed flex flex-col top-0 left-0 z-40 w-[275px] mb:w-[315px] xxs:w-[370px] xs:w-[420px] h-screen p-2 overflow-y-auto transition-transform -translate-x-full bg-white"
+	tabindex="-1" aria-labelledby="read-sidebar-label">
+	<div class="items-center flex justify-between p-2 w-10/12 mx-auto">
+		{% comment %} Title {% endcomment %}
+		<h5 id="read-sidebar-label"
+			class="flex-1 truncate text-base font-semibold text-gray-500 uppercase dark:text-gray-400">
+			<p>
+				{% if request.get_details.title %}
+				{{request.get_details.title|title}}
+				{% endif %}
+			</p>
+		</h5>
+
+		{% comment %} Close Button {% endcomment %}
+		<button type="button" data-drawer-hide="read-sidebar" aria-controls="read-sidebar"
+			class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 items-center dark:hover:bg-gray-600 dark:hover:text-white">
+			<svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+				xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd"
+					d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+					clip-rule="evenodd"></path>
+			</svg>
+			<span class="sr-only">Close menu</span>
+		</button>
+	</div>
+
+	{% comment %} Contents {% endcomment %}
+	<div class="flex-1 flex flex-col">
+		{% include "core/components/read/sidebar.html" %}
+	</div>
+</div>
+{% endif %}
+
+{% endblock content %}
+
+{% block scripts %}
+
+<script src="{% static 'scripts/reader.js' %}"></script>
+
+{% endblock scripts %}

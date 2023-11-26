@@ -1,0 +1,128 @@
+{% load xoanime %}
+
+<div data-popover id="tooltip-{{result.id}}" role="tooltip"
+	class="absolute z-10 invisible inline-block w-64 text-sm space-y-3 text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0">
+	<div class="px-3 py-4 bg-gray-100 border-b border-gray-200 rounded-t-lg">
+		<h3 class="text-center  font-semibold text-gray-900 truncate">
+			{{result.title|title}}</h3>
+	</div>
+
+	{% if result.description %}
+	<div class="scrollbar scrollbar-none max-h-[100px] overflow-auto text-justify px-3">
+		<p class="p-2">{{result.description|safe}}</p>
+	</div>
+	{% endif %}
+
+
+	<div class="px-3 py-3 space-y-3 scrollbar scrollbar-none max-h-28 overflow-auto">
+		{% if result.currentEpisodeCount %}
+		<div class="flex justify-around mx-auto">
+			<p class="w-1/2 text-center">Current</p>
+			<p class="w-1/2 text-center">{{result.currentEpisodeCount}}</p>
+		</div>
+		{% endif %}
+
+		{% if result.duration %}
+		<div class="flex justify-around mx-auto">
+			<p class="w-1/2 text-center">Duration</p>
+			<p class="w-1/2 text-center">{{result.duration}}&nbsp;Minutes</p>
+		</div>
+		{% endif %}
+
+		{% if result.totalEpisodes %}
+		<div class="flex justify-around mx-auto">
+			<p class="w-1/2 text-center">Episodes</p>
+			<p class="w-1/2 text-center">{{result.totalEpisodes}}</p>
+		</div>
+		{% endif %}
+
+		{% if result.episodeNumber %}
+		<div class="flex justify-around mx-auto">
+			<p class="w-1/2 text-center">Episode</p>
+			<p class="w-1/2 text-center">{{result.episodeNumber}}</p>
+		</div>
+		{% endif %}
+
+		{% if result.lastChapter %}
+		<div class="flex justify-around mx-auto">
+			<p class="w-1/2 text-center">Last Chapter</p>
+			<p class="w-1/2 text-center">{{result.lastChapter}}</p>
+		</div>
+		{% endif %}
+
+
+		{% if result.lastVolume %}
+		<div class="flex justify-around mx-auto">
+			<p class="w-1/2 text-center">Last Volume</p>
+			<p class="w-1/2 text-center">{{result.lastVolume}}</p>
+		</div>
+		{% endif %}
+
+		{% if result.popularity %}
+		<div class="flex justify-around mx-auto">
+			<p class="w-1/2 text-center">Popularity</p>
+			<p class="w-1/2 text-center">{{result.popularity|capfirst}}</p>
+		</div>
+		{% endif %}
+
+		{% if result.rating %}
+		<div class="flex justify-around mx-auto">
+			<p class="w-1/2 text-center">Rating</p>
+			<p class="w-1/2 text-center">{{result.rating}}</p>
+		</div>
+		{% endif %}
+
+		{% if result.releaseDate %}
+		<div class="flex justify-around mx-auto">
+			<p class="w-1/2 text-center">Released</p>
+			<p class="w-1/2 text-center">{{result.releaseDate}}</p>
+		</div>
+		{% endif %}
+
+		{% if result.status %}
+		<div class="flex justify-around mx-auto">
+			<p class="w-1/2 text-center">Status</p>
+			<p class="w-1/2 text-center">{{result.status|capfirst}}</p>
+		</div>
+		{% endif %}
+
+		{% if result.type %}
+		<div class="flex justify-around mx-auto">
+			<p class="w-1/2 text-center">Type</p>
+			<p class="w-1/2 text-center">{{result.type}}&nbsp;
+				{% if result.subOrDub %}
+				{{result.subOrDub|type}}
+				{% endif %}
+			</p>
+		</div>
+		{% endif %}
+
+		{% if result.genres %}
+		<div class="grid grid-cols-2 mx-auto gap-1">
+			{% for genre in result.genres %}
+			<p class="truncate p-2 text-center w-full mx-auto border rounded-md">{{genre}}</p>
+			{% endfor %}
+		</div>
+		{% endif %}
+	</div>
+
+	<div class="flex justify-around p-2 py-3">
+		{% if result.trailer %}
+		<span class="border p-2 rounded-xl bg-gray-200 hover:bg-gray-800 hover:text-white shadow">
+			<a href="https://www.youtube.com/watch?v={{result.trailer.id}}">Trailer</a>
+		</span>
+		{% endif %}
+
+		{% if result.id %}
+		<span class="border p-2 rounded-xl bg-gray-200 hover:bg-gray-800 hover:text-white shadow">
+			<a href="{% url 'details' %}?id={{result.id}}">Details</a>
+		</span>
+		{% endif %}
+
+		{% if result.episodeId %}
+		<span class="border p-2 rounded-xl bg-gray-200 hover:bg-gray-800 hover:text-white shadow">
+			<a href="{% url 'watch_episode' %}?id={{result.episodeId}}">Watch</a>
+		</span>
+		{% endif %}
+	</div>
+</div>
